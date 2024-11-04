@@ -1,0 +1,343 @@
+      /* الأنماط الأساسية */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #141e30, #243b55);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        /* تحسينات الخلفية المتحركة */
+        .container::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, transparent 20%, #141e30 100%),
+                linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+            background-size: 100px 100px;
+            animation: backgroundMove 60s linear infinite;
+            opacity: 0.3;
+        }
+
+        /* تحسينات حركة الخلفية */
+        @keyframes backgroundMove {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* تحسينات المكعب */
+        .cube-container {
+            width: 300px;
+            height: 300px;
+            perspective: 1500px;
+            margin: auto;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* تحسينات حركة المكعب */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0); }
+            50% { transform: translateY(-20px) rotateY(180deg); }
+        }
+
+        /* تحسينات وجوه المكعب */
+        .face {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        /* تحديد مواقع الوجوه مع تحسينات 3D */
+        .front { transform: translateZ(150px) rotateY(0deg); }
+        .back { transform: rotateY(180deg) translateZ(150px); }
+        .right { transform: rotateY(90deg) translateZ(150px); }
+        .left { transform: rotateY(-90deg) translateZ(150px); }
+
+        /* تحسينات التأثيرات على الوجوه */
+        .face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            transform: translateZ(1px);
+        }
+
+        .face:hover::before {
+            opacity: 1;
+        }
+
+        /* تحسينات الأيقونات */
+        .face i {
+            font-size: 64px;
+            transition: all 0.3s;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        .face:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05) translateZ(160px);
+        }
+
+        .face:hover i {
+            color: #ffcc00;
+            transform: scale(1.2) translateZ(20px);
+        }
+
+        /* تحسينات حاوية اللعبة */
+        .game-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(20, 30, 48, 0.95);
+            padding: 30px;
+            box-sizing: border-box;
+            backdrop-filter: blur(15px);
+            overflow-y: auto;
+            animation: slideIn 0.5s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        /* تحسينات حركة ظهور اللعبة */
+        @keyframes slideIn {
+            from { transform: translateY(100%) scale(0.8); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* تحسينات محتوى اللعبة */
+        .game-content {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* تحسينات أزرار التحكم */
+        .game-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+            background: rgba(20, 30, 48, 0.8);
+            padding: 15px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* تحسينات الأزرار */
+        .control-btn, .return-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Tajawal', Arial, sans-serif;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+        }
+
+        .control-btn:hover, .return-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* تحسينات طاولات اللعب */
+        .game-table {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* تحسينات طاولة البلوت */
+        .baloot-table {
+            background: linear-gradient(45deg, #1a472a, #2d5a3f);
+        }
+
+        .baloot-player {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transform-style: preserve-3d;
+            transition: all 0.3s;
+        }
+
+        .baloot-player:hover {
+            transform: translateZ(20px);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
+        }
+
+        /* تحسينات طاولة الشطرنج */
+        .chess-board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 2px;
+            padding: 20px;
+            background: #2d2d2d;
+            transform-style: preserve-3d;
+        }
+
+        .chess-cell {
+            aspect-ratio: 1;
+            transition: all 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .chess-cell:hover {
+            transform: translateZ(10px);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+        }
+
+        /* تحسينات طاولة الهاند */
+        .hand-table {
+            background: linear-gradient(45deg, #1a3a47, #2d5a6f);
+        }
+
+        .hand-player {
+            position: absolute;
+            width: 120px;
+            height: 180px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            transform-style: preserve-3d;
+            transition: all 0.3s;
+        }
+
+        /* تحسينات طاولة الدومينو */
+        .domino-table {
+            background: linear-gradient(45deg, #2d2d2d, #404040);
+        }
+
+        .domino-piece {
+            width: 60px;
+            height: 120px;
+            background: white;
+            border-radius: 10px;
+            margin: 5px;
+            transform-style: preserve-3d;
+            transition: all 0.3s;
+        }
+
+        .domino-piece:hover {
+            transform: translateZ(20px) scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+        }
+
+        /* تحسينات للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .cube-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .face {
+                width: 200px;
+                height: 200px;
+                font-size: 22px;
+            }
+            
+            .face i {
+                font-size: 48px;
+            }
+
+            .control-btn, .return-btn {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+
+            .game-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* تحسينات التأثيرات الحركية */
+        @keyframes cardDeal {
+            0% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes pieceDrop {
+            0% { transform: translateY(-50px) rotate(45deg); opacity: 0; }
+            100% { transform: translateY(0) rotate(0); opacity: 1; }
+        }
+
+        @keyframes playerTurn {
+            0% { box-shadow: 0 0 0 rgba(255, 204, 0, 0); }
+            50% { box-shadow: 0 0 30px rgba(255, 204, 0, 0.5); }
+            100% { box-shadow: 0 0 0 rgba(255, 204, 0, 0); }
+        }
